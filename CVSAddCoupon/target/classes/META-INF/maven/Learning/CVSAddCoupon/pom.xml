@@ -90,7 +90,6 @@
     <version>2.20.0</version>
     <type>pom</type>
 </dependency>
-
 <!-- SLF4J Bridge -->
 <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
 <dependency>
@@ -99,7 +98,6 @@
     <version>2.20.0</version>
     <scope>test</scope>
 </dependency>
-
 <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -114,13 +112,6 @@
     <scope>test</scope>
 </dependency>
 
-
-
-
-
-
-
 </dependencies>
-
 
 </project>

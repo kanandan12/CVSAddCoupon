@@ -9,8 +9,11 @@ public class CVSpage {
 
 	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
+		
+		// String Where Home Page URL Is Stored
+        String baseUrl = "https://www.cvs.com/";
 	
-		// Launch Chrome Browser
+		// Creating New Object driver Of Webdriver for Chrome Browser
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
 		
@@ -20,8 +23,8 @@ public class CVSpage {
 		// Implicitly Wait
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 	
-		//Open CVS Web Page
-		driver.get("https://www.cvs.com/");
+		// Calling the Home Page By Using Get() Method
+		driver.get(baseUrl);
 		
 		//Get Title Message
 		String chromeMsg = driver.getTitle();
@@ -39,7 +42,7 @@ public class CVSpage {
 		WebDriver fdriver = new FirefoxDriver();
 		fdriver.manage().window().maximize();
 		fdriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		fdriver.get("https://www.cvs.com/");
+		fdriver.get(baseUrl);
 		
 		//Get Title Message
 		String frfxMsg = fdriver.getTitle();
@@ -54,7 +57,7 @@ public class CVSpage {
 		WebDriver edriver = new EdgeDriver();
 		edriver.manage().window().maximize();
 		edriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		edriver.get("https://www.cvs.com/");
+		edriver.get(baseUrl);
 		
 		//Confirming Message
 		String edgeMsg = edriver.getTitle();
@@ -66,6 +69,7 @@ public class CVSpage {
 		
 		
 */
+	
 		
 		//Close browser
 		//driver.close();

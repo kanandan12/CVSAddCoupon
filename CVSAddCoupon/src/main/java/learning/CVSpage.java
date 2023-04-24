@@ -3,6 +3,8 @@ package learning;
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.safari.SafariDriver;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class CVSpage {
@@ -33,6 +35,31 @@ public class CVSpage {
 		
 		// Wait for 3 seconds
 		Thread.sleep(3000);
+		
+		
+		// Creating New Webdriver for Safari Browser
+        WebDriverManager.safaridriver().setup();
+		WebDriver idriver = new SafariDriver();
+		
+		// Maximize the browser
+		idriver.manage().window().maximize();
+		
+		// Implicitly Wait
+		idriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+	
+		// Calling the Home Page By Using Get() Method
+		idriver.get(baseUrl);
+		
+		//Get Title Message
+		String sfrMsg = idriver.getTitle();
+		//Confirming Message
+		System.out.println("Safari Browser is opened " + sfrMsg);
+		
+		// Wait for 3 seconds
+		Thread.sleep(3000);
+		
+		//Close browser
+		idriver.close();
 		
 		
 	
@@ -69,10 +96,29 @@ public class CVSpage {
 		
 		
 */
+		
+		
+/*		
+		//Open in Microsoft Edge Driver
+		WebDriverManager.
+		WebDriver edriver = new EdgeDriver();
+		edriver.manage().window().maximize();
+		edriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		edriver.get(baseUrl);
+		
+		//Confirming Message
+		String edgeMsg = edriver.getTitle();
+		//Confirming Message
+		System.out.println("Microsoft Edge Web Browser is opened " +edgeMsg);
+		
+		// Wait for 3 seconds
+		Thread.sleep(3000);
 	
+*/
+		
 		
 		//Close browser
-		//driver.close();
+		driver.close();
 		//fdriver.close();
 		//edriver.close();
 		

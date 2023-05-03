@@ -1,10 +1,11 @@
 package learning;
 
 import java.time.Duration;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.safari.SafariDriver;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class CVSpage {
@@ -15,7 +16,7 @@ public class CVSpage {
 		// String Where Home Page URL Is Stored
         String baseUrl = "https://www.cvs.com/";
 	
-		// Creating New Object driver Of Webdriver for Chrome Browser
+		// Creating New Object driver Of WebDriver for Chrome Browser
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
 		
@@ -31,12 +32,49 @@ public class CVSpage {
 		//Get Title Message
 		String chromeMsg = driver.getTitle();
 		//Confirming Message
-		System.out.println("Chrome Web Browser is opened " + chromeMsg);
+		System.out.println("Chrome Browser is opened " + chromeMsg);
 		
 		// Wait for 3 seconds
 		Thread.sleep(3000);
 		
+		int size = driver.findElements(By.tagName("iframe")).size();
+		String s=Integer.toString(size);
+		System.out.println("Frame Size: " +size );
 		
+		
+		
+		//if (s.contains("4"))
+		//{
+			// Switch to first frame
+			driver.switchTo().frame("3");
+			//kampyleInvite
+			
+			// Click First Frame Button page
+			WebElement feedBackFrame = driver.findElement(By.id("kplDeferButton"));
+			String strFeedBack = driver.findElement(By.id("kplDeferButton")).getText();
+			System.out.println(strFeedBack);
+			driver.findElement(By.id("kplDeferButton")).click();
+			//feedBackFrame.click();
+			driver.switchTo().defaultContent();
+		//}
+		
+		
+		
+		
+		//driver.findElement(By.id("cvs-header-util-link")).click();
+		//WebElement sigInPage = driver.findElement(By.id("cvs-header-util-link"));
+		//sigInPage.click();
+		
+		
+		
+		//driver.findElement(By.id("email")).clear();
+		//driver.findElement(By.id("email")).sendKeys("kamalakannan.anandan@gmail.com");
+		
+		
+		//driver.findElement(By.name("email")).clear();// Good practice to clear a field before use
+		//driver.findElement(By.name("email")).sendKeys("mngr309297");
+		
+/*		
 		// Creating New Webdriver for Safari Browser
         WebDriverManager.safaridriver().setup();
 		WebDriver idriver = new SafariDriver();
@@ -61,6 +99,7 @@ public class CVSpage {
 		//Close browser
 		idriver.close();
 		
+*/
 		
 	
 /*		
@@ -118,7 +157,7 @@ public class CVSpage {
 		
 		
 		//Close browser
-		driver.close();
+		//driver.close();
 		//fdriver.close();
 		//edriver.close();
 		

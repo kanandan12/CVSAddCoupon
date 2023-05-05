@@ -1,6 +1,7 @@
 package learning;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +16,7 @@ public class CVSpage {
 		
 		// String Where Home Page URL Is Stored
         String baseUrl = "https://www.cvs.com/";
-	
+
 		// Creating New Object driver Of WebDriver for Chrome Browser
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
@@ -24,7 +25,7 @@ public class CVSpage {
 		driver.manage().window().maximize();
 		
 		// Implicitly Wait
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	
 		// Calling the Home Page By Using Get() Method
 		driver.get(baseUrl);
@@ -32,31 +33,55 @@ public class CVSpage {
 		//Get Title Message
 		String chromeMsg = driver.getTitle();
 		//Confirming Message
-		System.out.println("Chrome Browser is opened " + chromeMsg);
+		System.out.println("Chrome Browser is opened\n" + chromeMsg);
 		
 		// Wait for 3 seconds
 		Thread.sleep(3000);
 		
-		int size = driver.findElements(By.tagName("iframe")).size();
-		String s=Integer.toString(size);
-		System.out.println("Frame Size: " +size );
-		
-		
-		
-		//if (s.contains("4"))
-		//{
-			// Switch to first frame
-			driver.switchTo().frame("3");
-			//kampyleInvite
+		//Get list of web-elements with tagName  - iFrame
+		List<WebElement> allFrames = driver.findElements(By.tagName("iframe"));
+		 
+		//Traversing through the list and printing its text along with link address
+		for(WebElement frames:allFrames){
+			System.out.println(frames.getText() + " - " + frames.getAttribute("title"));
 			
-			// Click First Frame Button page
-			WebElement feedBackFrame = driver.findElement(By.id("kplDeferButton"));
-			String strFeedBack = driver.findElement(By.id("kplDeferButton")).getText();
-			System.out.println(strFeedBack);
-			driver.findElement(By.id("kplDeferButton")).click();
-			//feedBackFrame.click();
-			driver.switchTo().defaultContent();
-		//}
+			// Find the Invitation to provide feedback Frame
+			String strProvideFeedBck = frames.getAttribute("title");
+			if(strProvideFeedBck.contains("Invitation to provide feedback")) {
+				
+				// Print Message Invitation to provide feedback Frame Open
+				System.out.println(frames.getAttribute("id"));
+				
+				driver.switchTo().frame("kampyleInvite");
+				//driver.findElement(By.id("kplDeferButton")).click();
+				//driver.findElement(By.id("kplDeclineButton")).click();
+				
+				// Click Close Button
+				driver.findElement(By.xpath(".//*[@id=\"kplDeferButton\"]")).click();
+				//driver.findElement(By.xpath(".//*[@id=\"kplDeclineButton\"]")).click();
+				
+				// Switch Back to Default Browser
+				driver.switchTo().defaultContent();
+				
+				// Print Message Back to Default Browser Window
+				System.out.println("Back to Default Browser Window");
+			}
+		}
+		
+	
+		try {
+			
+			// Find WebElement for Sin in			
+			WebElement signinelement = driver.findElement(By.id("cvs-header-util-link"));
+			String strName = signinelement.getAttribute("id");
+			
+			System.out.println("ID Name:" + strName);
+				
+		} 
+		catch(Exception e){
+			System.out.println(e);
+		}	
+		
 		
 		
 		

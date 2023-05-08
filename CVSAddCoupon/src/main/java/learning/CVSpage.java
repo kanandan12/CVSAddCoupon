@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.JavascriptExecutor;
 
 public class CVSpage {
 
@@ -21,6 +22,9 @@ public class CVSpage {
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
 		
+		//Creating the JavascriptExecutor interface object by Type casting		
+        JavascriptExecutor js = (JavascriptExecutor)driver;	
+        
 		// Maximize the browser
 		driver.manage().window().maximize();
 		
@@ -68,21 +72,27 @@ public class CVSpage {
 			}
 		}
 		
-	
-		try {
-			
-			// Find WebElement for Sin in			
-			WebElement signinelement = driver.findElement(By.id("cvs-header-util-link"));
-			String strName = signinelement.getAttribute("id");
-			
-			System.out.println("ID Name:" + strName);
-				
-		} 
-		catch(Exception e){
-			System.out.println(e);
-		}	
 		
 		
+        
+        try {
+        	
+        	// Find WebElement for Sin in
+    		WebElement signin = (WebElement)js.executeScript("return document.querySelector(\"body > app-root > app-homepage > cvs-header-component > div > cvs-header > cvs-header-desktop\").shadowRoot.querySelector(\"#cvs-desktop-header-container > div.header-desktop-bottom.sc-cvs-header-desktop > div:nth-child(1) > cvs-header-utility-bar\").shadowRoot.querySelector(\"#cvs-header-util-link > a\")");
+    		
+    		
+    		//Perform Click on LOGIN button using JavascriptExecutor
+            js.executeScript("arguments[0].click();", signin);
+            
+            String strCurrentURL = driver.getCurrentUrl();
+    		System.out.println(strCurrentURL);
+		
+        
+        } catch(Exception e){ System.out.println(e); }
+
+		
+		String strCurrentTitle = driver.getTitle();
+		System.out.println(strCurrentTitle);
 		
 		
 		

@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 
@@ -19,8 +21,10 @@ public class CVSpage {
         String baseUrl = "https://www.cvs.com/";
 
 		// Creating New Object driver Of WebDriver for Chrome Browser
-		WebDriverManager.chromedriver().setup();
-		WebDriver driver = new ChromeDriver();
+		//WebDriverManager.chromedriver().setup();
+		//WebDriver driver = new ChromeDriver();
+        WebDriverManager.firefoxdriver().setup();
+        WebDriver driver = new FirefoxDriver();
 		
 		//Creating the JavascriptExecutor interface object by Type casting		
         JavascriptExecutor js = (JavascriptExecutor)driver;	
@@ -73,7 +77,7 @@ public class CVSpage {
 		}
 		
 		
-		
+		Thread.sleep(2000);
         
         try {
         	
@@ -81,18 +85,45 @@ public class CVSpage {
     		WebElement signin = (WebElement)js.executeScript("return document.querySelector(\"body > app-root > app-homepage > cvs-header-component > div > cvs-header > cvs-header-desktop\").shadowRoot.querySelector(\"#cvs-desktop-header-container > div.header-desktop-bottom.sc-cvs-header-desktop > div:nth-child(1) > cvs-header-utility-bar\").shadowRoot.querySelector(\"#cvs-header-util-link > a\")");
     		
     		
-    		//Perform Click on LOGIN button using JavascriptExecutor
+    		// Perform Click on LOGIN button using JavascriptExecutor
             js.executeScript("arguments[0].click();", signin);
             
-            String strCurrentURL = driver.getCurrentUrl();
-    		System.out.println(strCurrentURL);
-		
+            
         
         } catch(Exception e){ System.out.println(e); }
 
+        // Get current URL and print the message
+        String strCurrentURL = driver.getCurrentUrl();
+		System.out.println(strCurrentURL);
 		
+		// Get Current Title and print the message
 		String strCurrentTitle = driver.getTitle();
 		System.out.println(strCurrentTitle);
+		
+		// Enter you email address
+		driver.findElement(By.id("emailField")).clear();
+		driver.findElement(By.id("emailField")).sendKeys("mobileapptestfb@gmail.com");
+		
+		// Click the Continue Button
+		driver.findElement(By.className("continue-button primary")).click();
+		
+		
+		// Enter your password
+		driver.findElement(By.id("cvs-password-field-input")).clear();
+		driver.findElement(By.id("cvs-password-field-input")).sendKeys("Chennai@60");
+		
+		// Click the Sigin Button
+		driver.findElement(By.className("button primary")).click();
+		
+		// Enter One Time Password
+		//driver.findElement(By.id("forget-password-otp-input")).sendKeys("");
+		
+		// Click the Confirm Verification Code Button
+		//driver.findElement(By.id("forgot-password-verify-submit")).click();
+		
+		
+		
+		
 		
 		
 		

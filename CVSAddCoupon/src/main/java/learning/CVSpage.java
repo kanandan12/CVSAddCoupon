@@ -7,7 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
@@ -23,8 +26,10 @@ public class CVSpage {
 		// Creating New Object driver Of WebDriver for Chrome Browser
 		//WebDriverManager.chromedriver().setup();
 		//WebDriver driver = new ChromeDriver();
-        WebDriverManager.firefoxdriver().setup();
-        WebDriver driver = new FirefoxDriver();
+        //WebDriverManager.firefoxdriver().setup();
+        //WebDriver driver = new FirefoxDriver();
+        WebDriverManager.edgedriver().setup();
+        WebDriver driver = new EdgeDriver();
 		
 		//Creating the JavascriptExecutor interface object by Type casting		
         JavascriptExecutor js = (JavascriptExecutor)driver;	
@@ -100,45 +105,67 @@ public class CVSpage {
 		String strCurrentTitle = driver.getTitle();
 		System.out.println(strCurrentTitle);
 		
-		// Enter you email address
-		driver.findElement(By.id("emailField")).clear();
-		driver.findElement(By.id("emailField")).sendKeys("mobileapptestfb@gmail.com");
+		Thread.sleep(2000);
 		
-		// Click the Continue Button
-		driver.findElement(By.className("continue-button primary")).click();
+		try {
+			
+			// Get Current URL 
+			String strGetURL = driver.getCurrentUrl();
+			System.out.println(strGetURL);
+			
+			// Explicit wait
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20,1));
+			
+			// Enter you email address
+			//driver.findElement(By.id("emailField")).clear();
+			//driver.findElement(By.id("emailField")).sendKeys("mobileapptestfb@gmail.com");
+					
+			// Click my profile link
+			WebElement myProfile = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("emailField")));
+			myProfile.sendKeys("mobileapptestfb@gmail.com");
+			
+			Thread.sleep(2000);
+			
+			// Click the Continue Button
+			//driver.findElement(By.className("continue-button primary")).click();
+			//driver.findElement(By.xpath("//*[@id=\"login-container\"]/div/div/cvs-email-field/button")).click();
+			
+			// Find WebElement for Sin in
+			WebElement cont = (WebElement)js.executeScript("return document.querySelector(\"#login-container > div > div > cvs-email-field > button\")");
+    	
+    		// Perform Click on LOGIN button using JavascriptExecutor
+            js.executeScript("arguments[0].click();", cont);
+            
+			
+			// Print the message that continue button was clicked
+			System.out.println("Sucessfully Continue Button was Clicked");
+			
+			Thread.sleep(2000);
+			
+			// Enter your password
+			//driver.findElement(By.id("cvs-password-field-input")).clear();
+			//driver.findElement(By.id("cvs-password-field-input")).sendKeys("Chennai@60");
+			
+			//Thread.sleep(2000);
+			
+			// Click the Sigin Button
+			//driver.findElement(By.className("button primary")).click();
+			
+			// Enter One Time Password
+			//driver.findElement(By.id("forget-password-otp-input")).sendKeys("");
+			
+			// Click the Confirm Verification Code Button
+			//driver.findElement(By.id("forgot-password-verify-submit")).click();
+			
+			
+		}catch(Exception e){ System.out.println(e); }
+		
+		// Close Browser
+		//driver.close();
 		
 		
-		// Enter your password
-		driver.findElement(By.id("cvs-password-field-input")).clear();
-		driver.findElement(By.id("cvs-password-field-input")).sendKeys("Chennai@60");
-		
-		// Click the Sigin Button
-		driver.findElement(By.className("button primary")).click();
-		
-		// Enter One Time Password
-		//driver.findElement(By.id("forget-password-otp-input")).sendKeys("");
-		
-		// Click the Confirm Verification Code Button
-		//driver.findElement(By.id("forgot-password-verify-submit")).click();
 		
 		
-		
-		
-		
-		
-		
-		//driver.findElement(By.id("cvs-header-util-link")).click();
-		//WebElement sigInPage = driver.findElement(By.id("cvs-header-util-link"));
-		//sigInPage.click();
-		
-		
-		
-		//driver.findElement(By.id("email")).clear();
-		//driver.findElement(By.id("email")).sendKeys("kamalakannan.anandan@gmail.com");
-		
-		
-		//driver.findElement(By.name("email")).clear();// Good practice to clear a field before use
-		//driver.findElement(By.name("email")).sendKeys("mngr309297");
 		
 /*		
 		// Creating New Webdriver for Safari Browser
